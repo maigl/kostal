@@ -8,15 +8,14 @@ import (
 )
 
 type Register struct {
-	Addr         uint16
-	Description  string
-	Unit         string
-	Format       string
-	Length       uint16
-	Access       string
-	FunctionCode uint16
-	Data         []byte
-	Value        interface{}
+	Addr        uint16
+	Description string
+	Unit        string
+	Format      string
+	Length      uint16
+	Access      string
+	Data        []byte
+	Value       interface{}
 }
 
 func (r *Register) Read(client modbus.Client) error {
@@ -51,6 +50,8 @@ func (r *Register) Get() interface{} {
 		return r.Uint32()
 	case "U16":
 		return r.Uint16()
+	default:
+		return nil
 	}
 	return nil
 }
