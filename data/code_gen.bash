@@ -6,7 +6,7 @@ cat << EOF
 package data
 
 // GENERATED FILE: see code_gen.bash
-var Registers = []*Register{
+var Registers = map[string]*Register{
 EOF
 
 while IFS= read -r line
@@ -19,7 +19,7 @@ do
     done
 
 cat << EOF
-    &Register{
+    "${tmp[1]}": &Register{
         Addr: ${tmp[1]},
         Unit: "${tmp[(($len-5))]}",
         Format: "${tmp[(($len-4))]}",

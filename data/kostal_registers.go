@@ -1,771 +1,771 @@
 package data
 
 // GENERATED FILE: see code_gen.bash
-var Registers = []*Register{
-    &Register{
+var Registers = map[string]*Register{
+    "2": &Register{
         Addr: 2,
         Unit: "-",
         Format: "Bool",
         Length: 1,
         Description: "MODBUS Enable",
     },
-    &Register{
+    "4": &Register{
         Addr: 4,
         Unit: "-",
         Format: "U16",
         Length: 1,
         Description: "MODBUS Unit-ID",
     },
-    &Register{
+    "6": &Register{
         Addr: 6,
         Unit: "-",
         Format: "String",
         Length: 8,
         Description: "Inverter article number",
     },
-    &Register{
+    "14": &Register{
         Addr: 14,
         Unit: "-",
         Format: "String",
         Length: 8,
         Description: "Inverter serial number",
     },
-    &Register{
+    "30": &Register{
         Addr: 30,
         Unit: "-",
         Format: "U16",
         Length: 1,
         Description: "Number of bidirectional converter",
     },
-    &Register{
+    "32": &Register{
         Addr: 32,
         Unit: "-",
         Format: "U16",
         Length: 1,
         Description: "Number of AC phases",
     },
-    &Register{
+    "34": &Register{
         Addr: 34,
         Unit: "-",
         Format: "U16",
         Length: 1,
         Description: "Number of PV strings",
     },
-    &Register{
+    "36": &Register{
         Addr: 36,
         Unit: "-",
         Format: "U16",
         Length: 2,
         Description: "Hardware-Version",
     },
-    &Register{
+    "38": &Register{
         Addr: 38,
         Unit: "-",
         Format: "String",
         Length: 8,
         Description: "Software-Version Maincontroller (MC)",
     },
-    &Register{
+    "46": &Register{
         Addr: 46,
         Unit: "-",
         Format: "String",
         Length: 8,
         Description: "Software-Version IO-Controller (IOC)",
     },
-    &Register{
+    "54": &Register{
         Addr: 54,
         Unit: "-",
         Format: "U16",
         Length: 2,
         Description: "Power-ID",
     },
-    &Register{
+    "56": &Register{
         Addr: 56,
         Unit: "-",
         Format: "U16",
         Length: 2,
         Description: "Inverter state2",
     },
-    &Register{
+    "100": &Register{
         Addr: 100,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Total DC power",
     },
-    &Register{
+    "104": &Register{
         Addr: 104,
         Unit: "-",
         Format: "U32",
         Length: 2,
         Description: "State of energy manager3",
     },
-    &Register{
+    "106": &Register{
         Addr: 106,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Home own consumption from battery",
     },
-    &Register{
+    "108": &Register{
         Addr: 108,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Home own consumption from grid",
     },
-    &Register{
+    "110": &Register{
         Addr: 110,
         Unit: "Wh",
         Format: "Float",
         Length: 2,
         Description: "Total home consumption Battery",
     },
-    &Register{
+    "112": &Register{
         Addr: 112,
         Unit: "Wh",
         Format: "Float",
         Length: 2,
         Description: "Total home consumption Grid",
     },
-    &Register{
+    "114": &Register{
         Addr: 114,
         Unit: "Wh",
         Format: "Float",
         Length: 2,
         Description: "Total home consumption PV",
     },
-    &Register{
+    "116": &Register{
         Addr: 116,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Home own consumption from PV",
     },
-    &Register{
+    "118": &Register{
         Addr: 118,
         Unit: "Wh",
         Format: "Float",
         Length: 2,
         Description: "Total home consumption",
     },
-    &Register{
+    "120": &Register{
         Addr: 120,
         Unit: "Ohm",
         Format: "Float",
         Length: 2,
         Description: "Isolation resistance",
     },
-    &Register{
+    "122": &Register{
         Addr: 122,
         Unit: "%",
         Format: "Float",
         Length: 2,
         Description: "Power limit from EVU",
     },
-    &Register{
+    "124": &Register{
         Addr: 124,
         Unit: "%",
         Format: "Float",
         Length: 2,
         Description: "Total home consumption rate",
     },
-    &Register{
+    "144": &Register{
         Addr: 144,
         Unit: "s",
         Format: "Float",
         Length: 2,
         Description: "Worktime",
     },
-    &Register{
+    "150": &Register{
         Addr: 150,
         Unit: "-",
         Format: "Float",
         Length: 2,
         Description: "Actual cos φ",
     },
-    &Register{
+    "152": &Register{
         Addr: 152,
         Unit: "Hz",
         Format: "Float",
         Length: 2,
         Description: "Grid frequency",
     },
-    &Register{
+    "154": &Register{
         Addr: 154,
         Unit: "A",
         Format: "Float",
         Length: 2,
         Description: "Current Phase 1",
     },
-    &Register{
+    "156": &Register{
         Addr: 156,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Active power Phase 1",
     },
-    &Register{
+    "158": &Register{
         Addr: 158,
         Unit: "V",
         Format: "Float",
         Length: 2,
         Description: "Voltage Phase 1",
     },
-    &Register{
+    "160": &Register{
         Addr: 160,
         Unit: "A",
         Format: "Float",
         Length: 2,
         Description: "Current Phase 2",
     },
-    &Register{
+    "162": &Register{
         Addr: 162,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Active power Phase 2",
     },
-    &Register{
+    "164": &Register{
         Addr: 164,
         Unit: "V",
         Format: "Float",
         Length: 2,
         Description: "Voltage Phase 2",
     },
-    &Register{
+    "166": &Register{
         Addr: 166,
         Unit: "A",
         Format: "Float",
         Length: 2,
         Description: "Current Phase 3",
     },
-    &Register{
+    "168": &Register{
         Addr: 168,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Active power Phase 3",
     },
-    &Register{
+    "170": &Register{
         Addr: 170,
         Unit: "V",
         Format: "Float",
         Length: 2,
         Description: "Voltage Phase 3",
     },
-    &Register{
+    "172": &Register{
         Addr: 172,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Total AC active power",
     },
-    &Register{
+    "174": &Register{
         Addr: 174,
         Unit: "Var",
         Format: "Float",
         Length: 2,
         Description: "Total AC reactive power",
     },
-    &Register{
+    "178": &Register{
         Addr: 178,
         Unit: "VA",
         Format: "Float",
         Length: 2,
         Description: "Total AC apparent power",
     },
-    &Register{
+    "190": &Register{
         Addr: 190,
         Unit: "A",
         Format: "Float",
         Length: 2,
         Description: "Battery charge current",
     },
-    &Register{
+    "194": &Register{
         Addr: 194,
         Unit: "-",
         Format: "Float",
         Length: 2,
         Description: "Number of battery cycles",
     },
-    &Register{
+    "200": &Register{
         Addr: 200,
         Unit: "A",
         Format: "Float",
         Length: 2,
         Description: "Actual battery charge (-) / discharge (+) current",
     },
-    &Register{
+    "202": &Register{
         Addr: 202,
         Unit: "-",
         Format: "Float",
         Length: 2,
         Description: "PSSB fuse state5",
     },
-    &Register{
+    "208": &Register{
         Addr: 208,
         Unit: "-",
         Format: "Float",
         Length: 2,
         Description: "Battery ready flag",
     },
-    &Register{
+    "210": &Register{
         Addr: 210,
         Unit: "%",
         Format: "Float",
         Length: 2,
         Description: "Act. state of charge",
     },
-    &Register{
+    "214": &Register{
         Addr: 214,
         Unit: "°C",
         Format: "Float",
         Length: 2,
         Description: "Battery temperature",
     },
-    &Register{
+    "216": &Register{
         Addr: 216,
         Unit: "V",
         Format: "Float",
         Length: 2,
         Description: "Battery voltage",
     },
-    &Register{
+    "218": &Register{
         Addr: 218,
         Unit: "-",
         Format: "Float",
         Length: 2,
         Description: "Cos φ (powermeter)",
     },
-    &Register{
+    "220": &Register{
         Addr: 220,
         Unit: "Hz",
         Format: "Float",
         Length: 2,
         Description: "Frequency (powermeter)",
     },
-    &Register{
+    "222": &Register{
         Addr: 222,
         Unit: "A",
         Format: "Float",
         Length: 2,
         Description: "Current phase 1 (powermeter)",
     },
-    &Register{
+    "224": &Register{
         Addr: 224,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Active power phase 1 (powermeter)",
     },
-    &Register{
+    "226": &Register{
         Addr: 226,
         Unit: "Var",
         Format: "Float",
         Length: 2,
         Description: "Reactive power phase 1 (powermeter)",
     },
-    &Register{
+    "228": &Register{
         Addr: 228,
         Unit: "VA",
         Format: "Float",
         Length: 2,
         Description: "Apparent power phase 1 (powermeter)",
     },
-    &Register{
+    "230": &Register{
         Addr: 230,
         Unit: "V",
         Format: "Float",
         Length: 2,
         Description: "Voltage phase 1 (powermeter)",
     },
-    &Register{
+    "232": &Register{
         Addr: 232,
         Unit: "A",
         Format: "Float",
         Length: 2,
         Description: "Current phase 2 (powermeter)",
     },
-    &Register{
+    "234": &Register{
         Addr: 234,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Active power phase 2 (powermeter)",
     },
-    &Register{
+    "236": &Register{
         Addr: 236,
         Unit: "Var",
         Format: "Float",
         Length: 2,
         Description: "Reactive power phase 2 (powermeter)",
     },
-    &Register{
+    "238": &Register{
         Addr: 238,
         Unit: "VA",
         Format: "Float",
         Length: 2,
         Description: "Apparent power phase 2 (powermeter)",
     },
-    &Register{
+    "240": &Register{
         Addr: 240,
         Unit: "V",
         Format: "Float",
         Length: 2,
         Description: "Voltage phase 2 (powermeter)",
     },
-    &Register{
+    "242": &Register{
         Addr: 242,
         Unit: "A",
         Format: "Float",
         Length: 2,
         Description: "Current phase 3 (powermeter)",
     },
-    &Register{
+    "244": &Register{
         Addr: 244,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Active power phase 3 (powermeter)",
     },
-    &Register{
+    "246": &Register{
         Addr: 246,
         Unit: "Var",
         Format: "Float",
         Length: 2,
         Description: "Reactive power phase 3 (powermeter)",
     },
-    &Register{
+    "248": &Register{
         Addr: 248,
         Unit: "VA",
         Format: "Float",
         Length: 2,
         Description: "Apparent power phase 3 (powermeter)",
     },
-    &Register{
+    "250": &Register{
         Addr: 250,
         Unit: "V",
         Format: "Float",
         Length: 2,
         Description: "Voltage phase 3 (powermeter)",
     },
-    &Register{
+    "252": &Register{
         Addr: 252,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Total active power (powermeter)",
     },
-    &Register{
+    "254": &Register{
         Addr: 254,
         Unit: "Var",
         Format: "Float",
         Length: 2,
         Description: "Total reactive power (powermeter)",
     },
-    &Register{
+    "256": &Register{
         Addr: 256,
         Unit: "VA",
         Format: "Float",
         Length: 2,
         Description: "Total apparent power (powermeter)",
     },
-    &Register{
+    "258": &Register{
         Addr: 258,
         Unit: "A",
         Format: "Float",
         Length: 2,
         Description: "Current DC1",
     },
-    &Register{
+    "260": &Register{
         Addr: 260,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Power DC1",
     },
-    &Register{
+    "266": &Register{
         Addr: 266,
         Unit: "V",
         Format: "Float",
         Length: 2,
         Description: "Voltage DC1",
     },
-    &Register{
+    "268": &Register{
         Addr: 268,
         Unit: "A",
         Format: "Float",
         Length: 2,
         Description: "Current DC2",
     },
-    &Register{
+    "270": &Register{
         Addr: 270,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Power DC2",
     },
-    &Register{
+    "276": &Register{
         Addr: 276,
         Unit: "V",
         Format: "Float",
         Length: 2,
         Description: "Voltage DC2",
     },
-    &Register{
+    "278": &Register{
         Addr: 278,
         Unit: "A",
         Format: "Float",
         Length: 2,
         Description: "Current DC3",
     },
-    &Register{
+    "280": &Register{
         Addr: 280,
         Unit: "W",
         Format: "Float",
         Length: 2,
         Description: "Power DC3",
     },
-    &Register{
+    "286": &Register{
         Addr: 286,
         Unit: "V",
         Format: "Float",
         Length: 2,
         Description: "Voltage DC3",
     },
-    &Register{
+    "320": &Register{
         Addr: 320,
         Unit: "Wh",
         Format: "Float",
         Length: 2,
         Description: "Total yield",
     },
-    &Register{
+    "322": &Register{
         Addr: 322,
         Unit: "Wh",
         Format: "Float",
         Length: 2,
         Description: "Daily yield",
     },
-    &Register{
+    "324": &Register{
         Addr: 324,
         Unit: "Wh",
         Format: "Float",
         Length: 2,
         Description: "Yearly yield",
     },
-    &Register{
+    "326": &Register{
         Addr: 326,
         Unit: "Wh",
         Format: "Float",
         Length: 2,
         Description: "Monthly yield",
     },
-    &Register{
+    "384": &Register{
         Addr: 384,
         Unit: "-",
         Format: "String",
         Length: 32,
         Description: "Inverter network name",
     },
-    &Register{
+    "416": &Register{
         Addr: 416,
         Unit: "-",
         Format: "U16",
         Length: 1,
         Description: "IP enable",
     },
-    &Register{
+    "418": &Register{
         Addr: 418,
         Unit: "-",
         Format: "U16",
         Length: 1,
         Description: "Manual IP / Auto-IP",
     },
-    &Register{
+    "420": &Register{
         Addr: 420,
         Unit: "-",
         Format: "String",
         Length: 8,
         Description: "IP-address",
     },
-    &Register{
+    "428": &Register{
         Addr: 428,
         Unit: "-",
         Format: "String",
         Length: 8,
         Description: "IP-subnetmask",
     },
-    &Register{
+    "436": &Register{
         Addr: 436,
         Unit: "-",
         Format: "String",
         Length: 8,
         Description: "IP-gateway",
     },
-    &Register{
+    "444": &Register{
         Addr: 444,
         Unit: "-",
         Format: "U16",
         Length: 1,
         Description: "IP-auto-DNS",
     },
-    &Register{
+    "446": &Register{
         Addr: 446,
         Unit: "-",
         Format: "String",
         Length: 8,
         Description: "IP-DNS1",
     },
-    &Register{
+    "454": &Register{
         Addr: 454,
         Unit: "-",
         Format: "String",
         Length: 8,
         Description: "IP-DNS2",
     },
-    &Register{
+    "512": &Register{
         Addr: 512,
         Unit: "Ah",
         Format: "U32",
         Length: 2,
         Description: "Battery gross capacity",
     },
-    &Register{
+    "514": &Register{
         Addr: 514,
         Unit: "%",
         Format: "U16",
         Length: 1,
         Description: "Battery actual SOC",
     },
-    &Register{
+    "515": &Register{
         Addr: 515,
         Unit: "-",
         Format: "U32",
         Length: 2,
         Description: "Firmware Maincontroller (MC)",
     },
-    &Register{
+    "517": &Register{
         Addr: 517,
         Unit: "-",
         Format: "String",
         Length: 8,
         Description: "Battery Manufacturer",
     },
-    &Register{
+    "525": &Register{
         Addr: 525,
         Unit: "-",
         Format: "U32",
         Length: 2,
         Description: "Battery Model ID",
     },
-    &Register{
+    "527": &Register{
         Addr: 527,
         Unit: "-",
         Format: "U32",
         Length: 2,
         Description: "Battery Serial Number",
     },
-    &Register{
+    "529": &Register{
         Addr: 529,
         Unit: "Wh",
         Format: "U32",
         Length: 2,
         Description: "Work Capacity",
     },
-    &Register{
+    "531": &Register{
         Addr: 531,
         Unit: "W",
         Format: "U16",
         Length: 1,
         Description: "Inverter Max Power",
     },
-    &Register{
+    "532": &Register{
         Addr: 532,
         Unit: "-",
         Format: "-",
         Length: 1,
         Description: "Inverter Peak Generation Power Scale Factor4",
     },
-    &Register{
+    "535": &Register{
         Addr: 535,
         Unit: "-",
         Format: "String",
         Length: 16,
         Description: "Inverter Manufacturer",
     },
-    &Register{
+    "551": &Register{
         Addr: 551,
         Unit: "-",
         Format: "String",
         Length: 8,
         Description: "Inverter Model ID",
     },
-    &Register{
+    "559": &Register{
         Addr: 559,
         Unit: "-",
         Format: "String",
         Length: 16,
         Description: "Inverter Serial Number",
     },
-    &Register{
+    "575": &Register{
         Addr: 575,
         Unit: "W",
         Format: "S16",
         Length: 1,
         Description: "Inverter Generation Power (actual)",
     },
-    &Register{
+    "576": &Register{
         Addr: 576,
         Unit: "-",
         Format: "-",
         Length: 1,
         Description: "Power Scale Factor4",
     },
-    &Register{
+    "577": &Register{
         Addr: 577,
         Unit: "Wh",
         Format: "U32",
         Length: 2,
         Description: "Generation Energy",
     },
-    &Register{
+    "579": &Register{
         Addr: 579,
         Unit: "-",
         Format: "-",
         Length: 1,
         Description: "Energy Scale Factor4",
     },
-    &Register{
+    "582": &Register{
         Addr: 582,
         Unit: "W",
         Format: "S16",
         Length: 1,
         Description: "Actual battery charge/discharge power",
     },
-    &Register{
+    "586": &Register{
         Addr: 586,
         Unit: "-",
         Format: "U16",
         Length: 1,
         Description: "Battery Firmware",
     },
-    &Register{
+    "588": &Register{
         Addr: 588,
         Unit: "-",
         Format: "U16",
         Length: 1,
         Description: "Battery Type6",
     },
-    &Register{
+    "768": &Register{
         Addr: 768,
         Unit: "-",
         Format: "String",
         Length: 32,
         Description: "Productname (e.g. PLENTICORE plus)",
     },
-    &Register{
+    "800": &Register{
         Addr: 800,
         Unit: "-",
         Format: "String",
