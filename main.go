@@ -5,26 +5,26 @@ import (
 	"log"
 	"maigl/kostal/data"
 	"net/http"
-	"os"
-	"path"
 	"text/template"
 	"time"
 
 	"github.com/goburrow/modbus"
 )
 
-type Power struct {
-	Battery     string
-	Yield       string
-	Consumption string
+type PowerItem struct {
+	Label string
+	Unit  string
+	Value string
 }
 
 func web(w http.ResponseWriter, r *http.Request) {
 
 	power := getPower()
 
-	fp := path.Join("web", "index.html")
-	tmpl, err := template.ParseFiles(fp)
+	//fp := path.Join("web", "index.html")
+	//tmpl, err := template.ParseFiles(fp)
+
+	tmpl, err := template.New("web").Parse(html)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -50,7 +50,7 @@ func getModbusHandler() *modbus.TCPClientHandler {
 	handler := modbus.NewTCPClientHandler(addr)
 	handler.Timeout = 10 * time.Second
 	handler.SlaveId = 71
-	handler.Logger = log.New(os.Stdout, "test: ", log.LstdFlags)
+	//handler.Logger = log.New(os.Stdout, "test: ", log.LstdFlags)
 	// Connect manually so that multiple requests are handled in one connection session
 	err := handler.Connect()
 	if err != nil {
@@ -59,12 +59,14 @@ func getModbusHandler() *modbus.TCPClientHandler {
 	return handler
 }
 
-func getPower() Power {
+func getPower() map[string]PowerItem {
 
-	//TODO maybe cache power object and reduce number of modbus calls
-	modbusHandler := getModbusHandler()
-	client := modbus.NewClient(modbusHandler)
-	defer modbusHandler.Close()
+	if client == nil {
+		//TODO maybe cache power object and reduce number of modbus calls
+		modbusHandler := getModbusHandler()
+		client = modbus.NewClient(modbusHandler)
+		//defer modbusHandler.Close()
+	}
 
 	br := data.Registers["514"]
 	br.Read(client)
@@ -88,13 +90,32 @@ func getPower() Power {
 	cr = data.Registers["108"]
 	cr.Read(client)
 	consumption += cr.Float32()
+	cr = data.Registers["116"]
+	cr.Read(client)
+	consumption += cr.Float32()
 	consumption /= float32(1000)
 	if consumption < 0 {
 		consumption = 0
 	}
 	consumptionString := fmt.Sprintf("%1.1f", consumption)
 
-	return Power{Battery: battery, Yield: yieldString, Consumption: consumptionString}
+	ir := data.Registers["575"]
+	ir.Read(client)
+	grid := float32(ir.Uint16())/float32(1000) - consumption
+	gridString := fmt.Sprintf("%1.1f", grid)
+	gridLabel := "to grid"
+	if grid <= 0 {
+		grid *= -1
+		gridLabel = "from grid"
+	}
+
+	return map[string]PowerItem{
+		"battery":     PowerItem{Label: "battery", Unit: "%", Value: battery},
+		"yield":       PowerItem{Label: "yield", Unit: "kW", Value: yieldString},
+		"consumption": PowerItem{Label: "consumption", Unit: "kW", Value: consumptionString},
+		"grid":        PowerItem{Label: gridLabel, Unit: "kW", Value: gridString},
+	}
+
 }
 
 func printAllRegisters() {

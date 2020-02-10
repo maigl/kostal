@@ -36,6 +36,10 @@ func (r *Register) Uint16() (res uint16) {
 	return binary.BigEndian.Uint16(r.Data)
 }
 
+func (r *Register) Int16() (res int16) {
+	return int16(binary.BigEndian.Uint16(r.Data))
+}
+
 func (r *Register) Float32() (res float32) {
 	//so byte order is BigEndias .. but word order is Little Endian ?!
 	tmp := []byte{r.Data[2], r.Data[3], r.Data[0], r.Data[1]}

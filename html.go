@@ -1,3 +1,6 @@
+package main
+
+var html = `
 <!DOCTYPE html>
 <html>
 
@@ -45,6 +48,9 @@
 			background-color: #5e81ac;
 			color: #3d536e;
 	</style>
+	<script type="text/javascript">
+  		setTimeout(function(){ location = '' },60000)
+    </script>
 </head>
 
 <body>
@@ -59,4 +65,4 @@
 	{{end}}
 </body>
 
-</html>
+`
