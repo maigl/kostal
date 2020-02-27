@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"maigl/kostal/data"
+	"math"
 	"net/http"
 	"text/template"
 	"time"
@@ -101,11 +102,10 @@ func getPower() map[string]PowerItem {
 
 	ir := data.Registers["575"]
 	ir.Read(client)
-	grid := float32(ir.Uint16())/float32(1000) - consumption
+	grid := math.Abs(float64(ir.Uint16())/float64(1000) - float64(consumption))
 	gridString := fmt.Sprintf("%1.1f", grid)
 	gridLabel := "to grid"
 	if grid <= 0 {
-		grid *= -1
 		gridLabel = "from grid"
 	}
 

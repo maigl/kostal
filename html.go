@@ -6,22 +6,35 @@ var html = `
 
 <head>
 	<title>power</title>
-	<style>
-		body {
+	<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap">
+    <style>
+        body {
+  		    font-family: 'Open Sans Condensed', regular;
+			font-size: 18px;
+			line-height: 1;
 			padding: 0px;
 			margin: 0px;
 		}
 
+		/*https://coolors.co/c41b5c-08415c-6b818c-f1bf98-eee5e9*/
+		:root {
+			--color1: #08415C;
+			--color2: #6B818C;
+			--color3: #F1BF98;
+			--color4: #C41B5C;
+		}
+
 		div.value {
 			text-align: right;
-			font-size: 21em;
+			font-size: 22em;
 			padding-right: 31%;
 		}
 
 		div.unitblock {
 			overflow: visible;
 			float: right;
-			padding-right: 10%;
+			padding-right: 19%;
 			padding-top: 18%;
 			width: 20%;
 		}
@@ -35,21 +48,30 @@ var html = `
 		}
 
 		#battery {
-			background-color: #434c5e;
-			color: #697794;
-		}
-
-		#yield {
-			background-color: #668585;
-			color: #81a7a7;
+			background-color: var(--color1);
+			color: var(--color2);
 		}
 
 		#consumption {
-			background-color: #5e81ac;
-			color: #3d536e;
+			background-color: var(--color2);
+			color: var(--color3);
+		}
+
+		#grid {
+			background-color: var(--color3);
+			color: var(--color4);
+		}
+
+		#yield {
+			background-color: var(--color4);
+			color: var(--color1);
+		}
+
+
+
 	</style>
 	<script type="text/javascript">
-  		setTimeout(function(){ location = '' },60000)
+  		setTimeout(function(){ location = '' },5000)
     </script>
 </head>
 
