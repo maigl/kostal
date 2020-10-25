@@ -26,17 +26,20 @@ var html = `
 		}
 
 		div.value {
-			text-align: right;
+			/*text-align: right;
 			font-size: 22em;
 			padding-right: 31%;
+			*/
 		}
 
 		div.unitblock {
+			/*
 			overflow: visible;
 			float: right;
 			padding-right: 19%;
 			padding-top: 18%;
 			width: 20%;
+			*/
 		}
 
 		div.unitsymbol {
@@ -71,7 +74,7 @@ var html = `
 
 	</style>
 	<script type="text/javascript">
-  		setTimeout(function(){ location = '' },5000)
+  		//setTimeout(function(){ location = '' },5000)
     </script>
 </head>
 
@@ -82,7 +85,7 @@ var html = `
 			<div class=unitsymbol>{{$item.Unit}}</div>
 			<div class=unitname>{{$item.Label}}</div>
 		</div>
-		<div class=value>{{$item.Value}}</div>
+		<div  class=value>{{$item.Value}}</div>
 	</div>
 	{{end}}
 </body>

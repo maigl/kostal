@@ -19,9 +19,14 @@
         }
 
         div.value {
+            /*
             text-align: right;
             font-size: 22em;
             padding-right: 31%;
+            */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         div.unitblock {
@@ -61,18 +66,18 @@
         }
     </style>
     <script type="text/javascript">
-        setTimeout(function () { location = '' }, 5000)
+       // setTimeout(function () { location = '' }, 5000)
     </script>
 </head>
 
 <body>
     {{ range $key, $item := .}}
     <div class=topic id={{$key}}>
-        <div class=unitblock>
+        <!--div class=unitblock>
             <div class=unitsymbol>{{$item.Unit}}</div>
             <div class=unitname>{{$item.Label}}</div>
         </div>
-        <div class=value>{{$item.Value}}</div>
+        <div class=value>{{$item.Value}}</div-->
     </div>
     {{end}}
 </body>

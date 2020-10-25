@@ -1,3 +1,5 @@
+github.com/AdamSLevy/go-modbus v0.0.0-20140818212109-b4a4ab48f453 h1:Dvi7FeCJRosueLyWJprrRn/GdnjVYy1KfIJERkFRFrQ=
+github.com/AdamSLevy/go-modbus v0.0.0-20140818212109-b4a4ab48f453/go.mod h1:BYUQsWRzEjgVdTrp2TM0lAVs+XA7gUtEcALgycEq4Lc=
 github.com/dpapathanasiou/go-modbus v0.0.0-20171002000137-f0d2dc39b4d6 h1:GF1IGPoXN2ofq1Iz75epgHWPaS33qsHGDQf0eT5jONA=
 github.com/dpapathanasiou/go-modbus v0.0.0-20171002000137-f0d2dc39b4d6/go.mod h1:APnVl1CbDZgfPJvN4KxXv6wvrU2EpZYqOhOOu1conmg=
 github.com/goburrow/modbus v0.1.0 h1:DejRZY73nEM6+bt5JSP6IsFolJ9dVcqxsYbpLbeW/ro=
