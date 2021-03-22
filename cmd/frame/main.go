@@ -41,7 +41,9 @@ var client modbus.Client
 func main() {
 
 	http.HandleFunc("/", web)
-	http.ListenAndServe(":8080", nil)
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		panic(err)
+	}
 
 }
 
@@ -70,14 +72,25 @@ func getPower() map[string]PowerItem {
 	}
 
 	br := data.Registers["514"]
-	br.Read(client)
+	err := br.Read(client)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	battery := fmt.Sprintf("%d", br.Value)
 
 	yr := data.Registers["260"]
-	yr.Read(client)
+	err = yr.Read(client)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	yield := yr.Float32()
 	yr = data.Registers["270"]
-	yr.Read(client)
+	err = yr.Read(client)
+	if err != nil {
+		log.Fatal(err)
+	}
 	yield += yr.Float32()
 	yield /= float32(1000)
 	if yield < 0 {
@@ -86,13 +99,22 @@ func getPower() map[string]PowerItem {
 	yieldString := fmt.Sprintf("%1.1f", yield)
 
 	cr := data.Registers["106"]
-	cr.Read(client)
+	err = cr.Read(client)
+	if err != nil {
+		log.Fatal(err)
+	}
 	consumption := cr.Float32()
 	cr = data.Registers["108"]
-	cr.Read(client)
+	err = cr.Read(client)
+	if err != nil {
+		log.Fatal(err)
+	}
 	consumption += cr.Float32()
 	cr = data.Registers["116"]
-	cr.Read(client)
+	err = cr.Read(client)
+	if err != nil {
+		log.Fatal(err)
+	}
 	consumption += cr.Float32()
 	consumption /= float32(1000)
 	if consumption < 0 {
@@ -101,7 +123,10 @@ func getPower() map[string]PowerItem {
 	consumptionString := fmt.Sprintf("%1.1f", consumption)
 
 	ir := data.Registers["575"]
-	ir.Read(client)
+	err = ir.Read(client)
+	if err != nil {
+		log.Fatal(err)
+	}
 	grid := float32(ir.Uint16())/1000. - consumption
 	gridLabel := "to grid"
 	if grid <= 0 {
@@ -115,12 +140,14 @@ func getPower() map[string]PowerItem {
 		"consumption": PowerItem{Label: "consumption", Unit: "kW", Value: consumptionString},
 		"grid":        PowerItem{Label: gridLabel, Unit: "kW", Value: gridString},
 	}
-
 }
 
-func printAllRegisters() {
+func PrintAllRegisters() { // nolint
 	for _, r := range data.Registers {
-		r.Read(client)
+		err := r.Read(client)
+		if err != nil {
+			log.Fatal(err)
+		}
 		log.Printf("r: %+v", r)
 	}
 }
