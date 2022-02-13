@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"maigl/kostal/data"
@@ -17,6 +18,8 @@ type PowerItem struct {
 	Unit  string
 	Value string
 }
+
+var modbusAddr = flag.String("modbus_addr", "192.168.0.31:1502", "The addr of the kostal modbus")
 
 func web(w http.ResponseWriter, r *http.Request) {
 
@@ -39,6 +42,7 @@ func web(w http.ResponseWriter, r *http.Request) {
 var client modbus.Client
 
 func main() {
+	flag.Parse()
 
 	http.HandleFunc("/", web)
 	if err := http.ListenAndServe(":8080", nil); err != nil {
@@ -48,9 +52,8 @@ func main() {
 }
 
 func getModbusHandler() *modbus.TCPClientHandler {
-	addr := "192.168.0.38:1502"
 	// Modbus TCP
-	handler := modbus.NewTCPClientHandler(addr)
+	handler := modbus.NewTCPClientHandler(*modbusAddr)
 	handler.Timeout = 10 * time.Second
 	handler.SlaveId = 71
 	//handler.Logger = log.New(os.Stdout, "test: ", log.LstdFlags)
