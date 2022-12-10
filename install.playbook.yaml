@@ -1,0 +1,34 @@
+- hosts: logpi
+  vars:
+    name: kostal
+  tasks:
+    - name: build
+      local_action: "shell GOOS=linux GOARCH=arm GOARM=5 go build -o {{name}}_arm ./cmd/frame/"
+
+    - name: copy binary to target
+      copy:
+        src: "{{name}}_arm"
+        dest: "{{name}}"
+        force: true
+
+    - name: create service file
+      copy:
+        dest: "~/.config/systemd/user/{{name}}.service"
+        content: |
+          [Unit]
+          Description={{name}}
+
+          [Service]
+          Type=simple
+          ExecStart=/home/pi/{{name}}
+          Restart=always
+
+          [Install]
+          WantedBy=default.target
+
+    - name: "start {{name}} service"
+      systemd:
+        name: "{{name}}"
+        scope: user
+        state: restarted
+
