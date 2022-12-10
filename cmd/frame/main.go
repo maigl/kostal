@@ -4,11 +4,12 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"maigl/kostal/data"
 	"math"
 	"net/http"
 	"text/template"
 	"time"
+
+	"maigl/kostal/data"
 
 	"github.com/goburrow/modbus"
 )
@@ -22,11 +23,10 @@ type PowerItem struct {
 var modbusAddr = flag.String("modbus_addr", "192.168.0.31:1502", "The addr of the kostal modbus")
 
 func web(w http.ResponseWriter, r *http.Request) {
-
 	power := getPower()
 
-	//fp := path.Join("web", "index.html")
-	//tmpl, err := template.ParseFiles(fp)
+	// fp := path.Join("web", "index.html")
+	// tmpl, err := template.ParseFiles(fp)
 
 	tmpl, err := template.New("web").Parse(html)
 	if err != nil {
@@ -45,10 +45,9 @@ func main() {
 	flag.Parse()
 
 	http.HandleFunc("/", web)
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(":8081", nil); err != nil {
 		panic(err)
 	}
-
 }
 
 func getModbusHandler() *modbus.TCPClientHandler {
@@ -56,7 +55,7 @@ func getModbusHandler() *modbus.TCPClientHandler {
 	handler := modbus.NewTCPClientHandler(*modbusAddr)
 	handler.Timeout = 10 * time.Second
 	handler.SlaveId = 71
-	//handler.Logger = log.New(os.Stdout, "test: ", log.LstdFlags)
+	// handler.Logger = log.New(os.Stdout, "test: ", log.LstdFlags)
 	// Connect manually so that multiple requests are handled in one connection session
 	err := handler.Connect()
 	if err != nil {
@@ -66,12 +65,11 @@ func getModbusHandler() *modbus.TCPClientHandler {
 }
 
 func getPower() map[string]PowerItem {
-
 	if client == nil {
-		//TODO maybe cache power object and reduce number of modbus calls
+		// TODO maybe cache power object and reduce number of modbus calls
 		modbusHandler := getModbusHandler()
 		client = modbus.NewClient(modbusHandler)
-		//defer modbusHandler.Close()
+		// defer modbusHandler.Close()
 	}
 
 	br := data.Registers["514"]
@@ -130,7 +128,12 @@ func getPower() map[string]PowerItem {
 	if err != nil {
 		log.Fatal(err)
 	}
-	grid := float32(ir.Uint16())/1000. - consumption
+	gridRaw := float32(ir.Uint16()) / 1000.
+	// we seem to have an overflow here
+	if gridRaw > 60 {
+		gridRaw = 0
+	}
+	grid := gridRaw - consumption
 	gridLabel := "to grid"
 	if grid <= 0 {
 		gridLabel = "from grid"
@@ -138,10 +141,10 @@ func getPower() map[string]PowerItem {
 	gridString := fmt.Sprintf("%1.1f", math.Abs(float64(grid)))
 
 	return map[string]PowerItem{
-		"battery":     PowerItem{Label: "battery", Unit: "%", Value: battery},
-		"yield":       PowerItem{Label: "yield", Unit: "kW", Value: yieldString},
-		"consumption": PowerItem{Label: "consumption", Unit: "kW", Value: consumptionString},
-		"grid":        PowerItem{Label: gridLabel, Unit: "kW", Value: gridString},
+		"battery":     {Label: "battery", Unit: "%", Value: battery},
+		"yield":       {Label: "yield", Unit: "kW", Value: yieldString},
+		"consumption": {Label: "consumption", Unit: "kW", Value: consumptionString},
+		"grid":        {Label: gridLabel, Unit: "kW", Value: gridString},
 	}
 }
 
