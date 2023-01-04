@@ -1,0 +1,140 @@
+<head>
+    <title>power</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap">
+    <style>
+        body {
+            font-family: 'Open Sans Condensed', regular;
+            font-size: 18px;
+            line-height: 1;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        /*https://coolors.co/c41b5c-08415c-6b818c-f1bf98-eee5e9*/
+        :root {
+	--color1: #08415C;
+	--color2: #6B818C;
+	--color3: #F1BF98;
+	--color4: #C41B5C;
+        }
+
+        .row {
+		display: grid;
+		grid-template-columns: 1fr 5fr 1fr;
+		grid-template-rows: 1fr;
+		grid-column-gap: 0px;
+		grid-row-gap: 0px;
+	}
+
+        div.topic {
+            display: flex;
+            grid-area: 1 / 2 / 2 / 3;
+      	    padding-left: 60px;
+        }
+
+        div.value {
+            font-size: 22em;
+            text-align: right;
+            width: 1em;
+        }
+
+        div.unitblock {
+            padding-top: 10em;
+            overflow: visible;
+            width: 120px;
+        }
+
+        div.unitsymbol {
+            font-size: 5em;
+        }
+
+        div.unitname {
+            font-size: 3em;
+        }
+
+        #battery {
+            background-color: var(--color1);
+            color: var(--color2);
+        }
+        #battery > .forcast {
+            background-color: var(--color2);
+        }
+
+        #consumption {
+            background-color: var(--color2);
+            color: var(--color3);
+        }
+        #consumption > .forcast {
+            background-color: var(--color3);
+        }
+
+        #grid {
+            background-color: var(--color3);
+            color: var(--color4);
+        }
+        #grid > .forcast {
+            background-color: var(--color4);
+        }
+
+        #yield {
+            background-color: var(--color4);
+            color: var(--color1);
+        }
+        #yield > .forcast {
+            background-color: var(--color1);
+        }
+
+	.forcast {
+		grid-area: 1 / 3 / 2 / 4;
+		/*display: flex;
+		align-content: flex-start;*/
+                padding-top: 30px;
+                width: 200px;
+                opacity: 0.3;
+        } 
+
+        .sun {
+                -webkit-mask: url(web/sun.svg);
+                -webkit-mask-size: 200px;
+                -webkit-mask-repeat: no-repeat;
+	}
+
+        .full-sun {
+                -webkit-mask: url(web/full_sun_happy.svg);
+                -webkit-mask-size: 200px;
+                -webkit-mask-repeat: no-repeat;
+	}
+
+        .sun-cloud {
+                -webkit-mask: url(web/sun_cloud.svg);
+                -webkit-mask-size: 200px;
+                -webkit-mask-repeat: no-repeat;
+	}
+
+        .cloud {
+                -webkit-mask: url(web/cloud.svg);
+                -webkit-mask-size: 200px;
+                -webkit-mask-repeat: no-repeat;
+	}
+
+    </style>
+    <script type="text/javascript">
+       // setTimeout(function () { location = '' }, 5000)
+    </script>
+</head>
+
+<body>
+    {{ range $key, $item := .}}
+    <div class=row id={{$key}}>
+        <div class=topic id={{$key}}>
+        <div class=value>{{$item.Value}}</div>
+        <div class=unitblock>
+            <div class=unitsymbol>{{$item.Unit}}</div>
+            <div class=unitname>{{$item.Label}}</div>
+        </div>
+        </div>
+        <div class="forcast {{$item.Forcast}}">
+        </div>
+    </div>
+    {{end}}
+</body>

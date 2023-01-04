@@ -18,17 +18,18 @@ type PowerItem struct {
 	Label string
 	Unit  string
 	Value string
+	Forcast string
 }
 
 var modbusAddr = flag.String("modbus_addr", "192.168.0.31:1502", "The addr of the kostal modbus")
+var webDirPath = flag.String("web_dir", "/home/pi/kostal/web", "the path to the web dir")
 
 func web(w http.ResponseWriter, r *http.Request) {
 	power := getPower()
 
-	// fp := path.Join("web", "index.html")
-	// tmpl, err := template.ParseFiles(fp)
+	tmpl, err := template.ParseFiles(*webDirPath + "/frame.html")
 
-	tmpl, err := template.New("web").Parse(html)
+	// tmpl, err := template.New("web").Parse(html)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -43,6 +44,9 @@ var client modbus.Client
 
 func main() {
 	flag.Parse()
+
+	fs := http.FileServer(http.Dir(*webDirPath))
+	http.Handle("/web/", http.StripPrefix("/web/", fs))
 
 	http.HandleFunc("/", web)
 	if err := http.ListenAndServe(":8081", nil); err != nil {
@@ -92,6 +96,7 @@ func getPower() map[string]PowerItem {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	yield += yr.Float32()
 	yield /= float32(1000)
 	if yield < 0 {
@@ -104,18 +109,21 @@ func getPower() map[string]PowerItem {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	consumption := cr.Float32()
 	cr = data.Registers["108"]
 	err = cr.Read(client)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	consumption += cr.Float32()
 	cr = data.Registers["116"]
 	err = cr.Read(client)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	consumption += cr.Float32()
 	consumption /= float32(1000)
 	if consumption < 0 {
@@ -141,10 +149,10 @@ func getPower() map[string]PowerItem {
 	gridString := fmt.Sprintf("%1.1f", math.Abs(float64(grid)))
 
 	return map[string]PowerItem{
-		"battery":     {Label: "battery", Unit: "%", Value: battery},
-		"yield":       {Label: "yield", Unit: "kW", Value: yieldString},
-		"consumption": {Label: "consumption", Unit: "kW", Value: consumptionString},
-		"grid":        {Label: gridLabel, Unit: "kW", Value: gridString},
+		"battery":     {Label: "battery", Unit: "%", Value: battery, Forcast: "sun"},
+		"yield":       {Label: "yield", Unit: "kW", Value: yieldString, Forcast: "full-sun"},
+		"consumption": {Label: "consumption", Unit: "kW", Value: consumptionString, Forcast: "sun-cloud"},
+		"grid":        {Label: gridLabel, Unit: "kW", Value: gridString, Forcast: "cloud"},
 	}
 }
 

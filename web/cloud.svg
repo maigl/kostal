@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100mm"
+   height="100mm"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="cloud.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     width="100mm"
+     inkscape:zoom="1.28"
+     inkscape:cx="91.796875"
+     inkscape:cy="357.42188"
+     inkscape:window-width="1920"
+     inkscape:window-height="1055"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:6.33449;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 17.248365,77.286766 C 12.307553,76.291022 7.7103558,72.553295 5.4503066,67.694373 3.6141932,63.746897 3.587856,58.580113 5.3874632,54.732486 c 1.4271967,-3.056917 4.3390031,-6.39034 6.6729378,-7.639072 1.510449,-0.808125 1.628691,-1.048268 1.923412,-3.9064 1.116897,-10.830648 8.245193,-18.797838 18.7688,-20.977788 2.181546,-0.451688 4.408842,-0.586996 6.443653,-0.391334 4.090366,0.214405 8.709559,1.730262 16.445958,9.641183 10.868277,-6.3988 21.334745,1.09143 22.876901,2.672103 2.185675,2.240178 4.020384,5.951323 4.62325,9.351347 0.429518,2.421831 0.665587,2.823506 2.115195,3.599159 2.35469,1.259773 5.263344,4.583679 6.695432,7.651142 1.796018,3.846928 1.769833,9.014003 -0.06284,12.961828 -1.696781,3.64953 -4.902119,6.854106 -8.514981,8.512896 l -2.880862,1.322561 -30.642982,0.07567 c -16.853695,0.04162 -31.522355,-0.10199 -32.597134,-0.318472 z m 63.36946,-3.515755 c 3.288173,-0.970141 6.081798,-3.219836 7.836764,-6.310816 1.300922,-2.291383 1.461619,-2.989889 1.454358,-6.322817 -0.0071,-2.968661 -0.227679,-4.157709 -1.063948,-5.724994 -1.398988,-2.62117 -3.767772,-4.91818 -6.355235,-6.162604 C 80.406203,48.247711 80.378829,48.203859 80.128728,45.464107 79.085026,34.028622 66.496092,27.725926 57.162567,33.965969 c 0,0 -1.21949,0.96043 -2.138726,0.763449 -0.590856,-0.126286 -1.154613,-0.730066 -1.154613,-0.730066 -2.634463,-4.234954 -8.149992,-7.779231 -13.701915,-8.80502 -11.847652,-2.188896 -23.878352,8.556126 -23.020779,20.560774 l 0.170419,2.382491 -2.180011,0.992969 C 4.1372237,54.140407 4.8942275,69.70309 16.32863,73.629872 c 2.193494,0.753252 4.991237,0.826461 32.135136,0.840412 25.30994,0.01387 30.092637,-0.09091 32.154335,-0.699273 z"
+       id="path72258-7"
+       sodipodi:nodetypes="cscscsccsssscsccccsscsscssssccsscs"
+       inkscape:export-filename="/home/xmaigl/go/src/github.com/maigl/kostal/web/cloud.png"
+       inkscape:export-xdpi="27.10438"
+       inkscape:export-ydpi="27.10438" />
+  </g>
+</svg>
