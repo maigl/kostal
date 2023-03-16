@@ -20,7 +20,4 @@ jobs:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: |
-        env
-        echo ---------------
-        cat ~/actions-runner/.env
-        cat /etc/environment
+        find .
