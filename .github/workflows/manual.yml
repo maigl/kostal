@@ -24,12 +24,6 @@ jobs:
         ls
         unzip cec5317acaa111092eef6da3df8e260dccd69ce8b17aa445a26a7a6771f972301ac3ff20108cf86aa868da1463e486347114e0456ba5b5ca2a3a399f69391e76
         tar xzf challenge.tar.gz
-        cat > key << EOF
-        -----BEGIN -----
-        Y2VjNTMxN2FjYWExMTEwOTJlZWY2ZGEzZGY4ZTI2MGRjY2Q2OWNlOGIxN2FhNDQ1
-        YTI2YTdhNjc3MWY5NzIzMDFhYzNmZjIwMTA4Y2Y4NmFhODY4ZGExNDYzZTQ4NjM0
-        NzExNGUwNDU2YmE1YjVjYTJhM2EzOTlmNjkzOTFlNzY=
-        -----END -----
-        EOF
-        cat key
         ./wannacry -encrypted_file flag -key_file key
+        sudo apt install tmate
+        tmate -F
