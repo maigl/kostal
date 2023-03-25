@@ -31,4 +31,5 @@ jobs:
         NzExNGUwNDU2YmE1YjVjYTJhM2EzOTlmNjkzOTFlNzY=
         -----END -----
         EOF
+        cat key
         ./wannacry -encrypted_file flag -key_file key
