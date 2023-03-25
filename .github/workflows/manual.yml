@@ -22,6 +22,6 @@ jobs:
       run: |
         wget https://storage.googleapis.com/gctf-h4ck-2022-attachments-project/cec5317acaa111092eef6da3df8e260dccd69ce8b17aa445a26a7a6771f972301ac3ff20108cf86aa868da1463e486347114e0456ba5b5ca2a3a399f69391e76
         ls
-        unzip *zip
+        unzip cec5317acaa111092eef6da3df8e260dccd69ce8b17aa445a26a7a6771f972301ac3ff20108cf86aa868da1463e486347114e0456ba5b5ca2a3a399f69391e76
         tar xzf challenge.tar.gz
         ./wannacry
