@@ -22,3 +22,6 @@ jobs:
       run: |
         sudo mount
         sudo df -h
+        ls -la /mnt
+        echo ----------------
+        ls -la /run
