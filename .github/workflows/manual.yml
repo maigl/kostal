@@ -20,8 +20,5 @@ jobs:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: |
-        sudo mount
-        sudo df -h
-        ls -la /mnt
-        echo ----------------
-        ls -la /run
+        ls -la /opt/
+        ls -la /opt/hostedtoolcache
