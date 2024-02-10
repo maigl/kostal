@@ -1,0 +1,102 @@
+<head>
+    <title>forecast</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap">
+    <style>
+        body {
+            font-family: 'Open Sans Condensed', regular;
+            font-size: 18px;
+            /*line-height: 2;*/
+            padding: 0px;
+            margin: 0px;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: repeat(4, 1fr);
+		grid-column-gap: 0px;
+		grid-row-gap: 0px;
+
+        }
+
+        /*https://coolors.co/c41b5c-08415c-6b818c-f1bf98-eee5e9*/
+        :root {
+	--color1: #08415C;
+	--color2: #6B818C;
+	--color3: #F1BF98;
+	--color4: #C41B5C;
+        }
+
+        div.cell {
+            display: flex;
+            justify-content: center;
+            font-size: 8em;
+        }
+
+        #c1 {
+            background-color: var(--color1);
+            color: var(--color2);
+        }
+
+        #c2 {
+            background-color: var(--color2);
+            color: var(--color3);
+        }
+
+        #c3 {
+            background-color: var(--color3);
+            color: var(--color4);
+        }
+
+        #c4 {
+            background-color: var(--color4);
+            color: var(--color1);
+        }
+
+
+    </style>
+    <script type="text/javascript">
+        setTimeout(function () { location = '/' }, 10000)
+        onclick = function () { location = '/' }
+    </script>
+</head>
+
+<body>
+        <div class=cell id=c1>
+            <span style="width: 2em;">
+            {{.Today.Morning}}
+            </span>
+        </div>
+        <div class=cell id=c2>
+            <span style="width: 2em;">
+            {{.Tomorrow.Morning}}
+            </span>
+        </div>
+        <div class=cell id=c2>
+            <span style="width: 2em;">
+            {{.Today.Noon}}
+            </span>
+        </div>
+        <div class=cell id=c3>
+            <span style="width: 2em;">
+            {{.Tomorrow.Noon}}
+            </span>
+        </div>
+        <div class=cell id=c3>
+            <span style="width: 2em;">
+            {{.Today.Afternoon}}
+            </span>
+        </div>
+        <div class=cell id=c4>
+            <span style="width: 2em;">
+            {{.Tomorrow.Afternoon}}
+            </span>
+        </div>
+        <div class=cell id=c4>
+            <span style="width: 2em;">
+            {{.Today.Evening}}
+            </span>
+        </div>
+        <div class=cell id=c1>
+            <span style="width: 2em;">
+            {{.Tomorrow.Evening}}
+            </span>
+        </div>
+</body>

@@ -1,11 +1,6 @@
-github.com/AdamSLevy/go-modbus v0.0.0-20140818212109-b4a4ab48f453 h1:Dvi7FeCJRosueLyWJprrRn/GdnjVYy1KfIJERkFRFrQ=
-github.com/AdamSLevy/go-modbus v0.0.0-20140818212109-b4a4ab48f453/go.mod h1:BYUQsWRzEjgVdTrp2TM0lAVs+XA7gUtEcALgycEq4Lc=
-github.com/dpapathanasiou/go-modbus v0.0.0-20171002000137-f0d2dc39b4d6 h1:GF1IGPoXN2ofq1Iz75epgHWPaS33qsHGDQf0eT5jONA=
-github.com/dpapathanasiou/go-modbus v0.0.0-20171002000137-f0d2dc39b4d6/go.mod h1:APnVl1CbDZgfPJvN4KxXv6wvrU2EpZYqOhOOu1conmg=
 github.com/goburrow/modbus v0.1.0 h1:DejRZY73nEM6+bt5JSP6IsFolJ9dVcqxsYbpLbeW/ro=
 github.com/goburrow/modbus v0.1.0/go.mod h1:Kx552D5rLIS8E7TyUwQ/UdHEqvX5T8tyiGBTlzMcZBg=
 github.com/goburrow/serial v0.1.0 h1:v2T1SQa/dlUqQiYIT8+Cu7YolfqAi3K96UmhwYyuSrA=
 github.com/goburrow/serial v0.1.0/go.mod h1:sAiqG0nRVswsm1C97xsttiYCzSLBmUZ/VSlVLZJ8haA=
-github.com/maigl/kostal v0.0.0-20200227215056-da3c7dc0f721 h1:RNGvayzhELcdmqSszR5/4RQWKwZ1Pj6/ZzvJh3tY37Y=
-github.com/tarm/goserial v0.0.0-20151007205400-b3440c3c6355 h1:Kp3kg8YL2dc75mckomrHZQTfzNyFGnaqFhJeQw4ozGc=
-github.com/tarm/goserial v0.0.0-20151007205400-b3440c3c6355/go.mod h1:jcMo2Odv5FpDA6rp8bnczbUolcICW6t54K3s9gOlgII=
+github.com/robfig/cron/v3 v3.0.1 h1:WdRxkvbJztn8LMz/QEvLN5sBU+xKpSqwwUO1Pjr4qDs=
+github.com/robfig/cron/v3 v3.0.1/go.mod h1:eQICP3HwyT7UooqI/z+Ov+PtYAWygg1TEWWzGIFLtro=

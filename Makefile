@@ -9,3 +9,4 @@ web:
 
 install: arm web
 	scp kostal_arm logpi:~/kostal/ && rm kostal_arm
+ 

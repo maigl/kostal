@@ -89,7 +89,6 @@
 		/*display: flex;
 		align-content: flex-start;*/
                 padding-top: 30px;
-                width: 200px;
                 opacity: 0.3;
         } 
 
@@ -97,29 +96,34 @@
                 -webkit-mask: url(web/sun.svg);
                 -webkit-mask-size: 200px;
                 -webkit-mask-repeat: no-repeat;
+                width: 200px;
 	}
 
         .full-sun {
                 -webkit-mask: url(web/full_sun_happy.svg);
                 -webkit-mask-size: 200px;
                 -webkit-mask-repeat: no-repeat;
+                width: 200px;
 	}
 
         .sun-cloud {
                 -webkit-mask: url(web/sun_cloud.svg);
                 -webkit-mask-size: 200px;
                 -webkit-mask-repeat: no-repeat;
+                width: 200px;
 	}
 
         .cloud {
                 -webkit-mask: url(web/cloud.svg);
                 -webkit-mask-size: 200px;
                 -webkit-mask-repeat: no-repeat;
+                width: 200px;
 	}
 
     </style>
     <script type="text/javascript">
-       // setTimeout(function () { location = '' }, 5000)
+        setTimeout(function () { location = '' }, 5000)
+        onclick = function () { location = '/forecast' }
     </script>
 </head>
 
@@ -133,8 +137,10 @@
             <div class=unitname>{{$item.Label}}</div>
         </div>
         </div>
-        <div class="forcast {{$item.Forcast}}">
+        {{if $item.Forecast}}
+        <div class="forcast {{$item.Forecast}}">
         </div>
+        {{end}}
     </div>
     {{end}}
 </body>
