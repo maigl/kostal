@@ -17,14 +17,19 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    # Runs a single command using the runners shell
+    - name: Send greeting
+      run: |
+        ls -la /usr/share
+        ls -la /usr/share/dotnet
    
     - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '3.1.x'
     
-    - uses: actions/setup-dotnet@v4
+
     # Runs a single command using the runners shell
     - name: Send greeting
       run: |
-        ls -la /usr/share/
+        ls -la /usr/share
         ls -la /usr/share/dotnet
