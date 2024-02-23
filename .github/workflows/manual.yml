@@ -26,5 +26,5 @@ jobs:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: |
-        ls -la /opt/
-        ls -la /opt/hostedtoolcache
+        ls -la /usr/share/
+        ls -la /usr/share/dotnet
