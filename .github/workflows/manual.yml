@@ -20,6 +20,7 @@ jobs:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: |
+        ls -la /usr
         ls -la /usr/share
         ls -la /usr/share/dotnet
    
