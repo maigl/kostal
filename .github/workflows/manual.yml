@@ -17,6 +17,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+   
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '3.1.x'
+    
     - uses: actions/setup-dotnet@v4
     # Runs a single command using the runners shell
     - name: Send greeting
