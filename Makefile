@@ -12,3 +12,6 @@ install: arm web
 
 docker:
 	docker build -t ghcr.io/maigl/kostal:latest .
+
+docker-push:
+	docker push ghcr.io/maigl/kostal:latest
