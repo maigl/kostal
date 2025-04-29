@@ -9,4 +9,6 @@ web:
 
 install: arm web
 	scp kostal_arm logpi:~/kostal/ && rm kostal_arm
- 
+
+docker:
+	docker build -t ghcr.io/maigl/kostal:latest .
