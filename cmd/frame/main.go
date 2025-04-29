@@ -27,6 +27,7 @@ type PowerItem struct {
 var modbusAddr = flag.String("modbus_addr", "192.168.0.31:1502", "The addr of the kostal modbus")
 var webDirPath = flag.String("web_dir", "/home/pi/kostal/web", "the path to the web dir")
 var apiKey = flag.String("api_key", "", "solcast api key")
+var propertyID = flag.String("property_id", "95c5-8ddf-1d04-b586", "solcast property id")
 
 func web(w http.ResponseWriter, r *http.Request) {
 	power := getPower()
@@ -285,6 +286,13 @@ func (e Estimate) Icon() string {
 
 	avg := e.Avg()
 
+	// don't show anything if we don't have estimates
+	// this might happen if the solcast api is down
+	// or we ran in rate limits
+	if e.Estimates == nil {
+		return ""
+	}
+
 	if avg < 0.7 {
 		return "cloud"
 	}
@@ -367,35 +375,43 @@ func getForcast(day time.Time) (forecast, error) {
 	return forecasts[day], nil
 }
 
+var RateLimitError error = fmt.Errorf("rate limit exceeded")
+var PauseSolcastError error = fmt.Errorf("pause solcast")
+var PauseSolcastUntil time.Time
+
 func getForecastDataFromAPI() (*SolCastForecasts, error) {
 
-	propertyID := "95c5-8ddf-1d04-b586"
+	now := time.Now()
+	if PauseSolcastUntil.After(now) {
+		return nil, fmt.Errorf("%w until: %v", PauseSolcastError, PauseSolcastUntil)
+	}
 
 	url := fmt.Sprintf("https://api.solcast.com.au/rooftop_sites/%s/forecasts?format=json&api_key=%s",
-		propertyID, *apiKey)
-
-	log.Println("getting forecast from", url)
+		*propertyID, *apiKey)
 
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Printf("error getting forecast: %v", err)
-		return &SolCastForecasts{}, err
+		log.Printf("erroru getting forecast: %v", err)
+		return nil, err
 	}
-
 	defer resp.Body.Close()
+
+	if resp.StatusCode == http.StatusTooManyRequests ||
+		resp.StatusCode == 420 { // strangely the api seems returns 420 for rate limit
+		PauseSolcastUntil = time.Now().Add(time.Hour * 12)
+		return nil, RateLimitError
+	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Printf("error reading forecast: %v", err)
-		return &SolCastForecasts{}, err
+		return nil, err
 
 	}
 
 	var data SolCastForecasts
 	err = json.Unmarshal(body, &data)
 	if err != nil {
-		log.Printf("error unmarshalling forecast: %v", err)
-		return &SolCastForecasts{}, err
+		return nil, err
 	}
 
 	return &data, nil
