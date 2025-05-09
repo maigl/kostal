@@ -1,4 +1,4 @@
-module maigl/kostal
+module github.com/maigl/kostal
 
 go 1.24
 

@@ -1,5 +1,7 @@
 .PHONY: arm install all web
 
+build:
+	go build -o kostal ./cmd/frame
 
 arm:
 	GOOS=linux GOARCH=arm GOARM=5 go build -o kostal_arm ./cmd/frame
