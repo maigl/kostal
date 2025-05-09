@@ -16,5 +16,8 @@ FROM gcr.io/distroless/base
 # Copy our static executable
 COPY --from=builder /go/bin/kostal /go/bin/kostal
 COPY web /go/bin/web
+COPY forecasts.json /go/bin/forecasts.json
+
+WORKDIR /go/bin
 
 ENTRYPOINT ["/go/bin/kostal"]

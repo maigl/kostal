@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/maigl/kostal/pkg/config"
 )
 
 // forecasts is the struct to parse the json from solcast
@@ -107,7 +109,7 @@ func ResetForecasts() {
 // let's read forecast.json in '.'
 // find all the forcasts for today
 // and aggregate
-func GetForcast(day time.Time, propertyID, apiKey string) (Forecast, error) {
+func GetForcast(day time.Time) (Forecast, error) {
 
 	if f, ok := forecastsCache[day]; ok {
 		return f, nil
@@ -117,11 +119,11 @@ func GetForcast(day time.Time, propertyID, apiKey string) (Forecast, error) {
 
 	var data *forecasts
 	var err error
-	if apiKey == "" {
-		log.Println("no api key for solcast")
+	if config.Config.SolcastApiKey == "" || config.Config.SolcastPropertyID == "" {
+		log.Println("no api key or property id for solcast")
 		data, err = getForecastDataFromFile()
 	} else {
-		data, err = getForecastDataFromAPI(propertyID, apiKey)
+		data, err = getForecastDataFromAPI()
 	}
 	if err != nil {
 		return Forecast{}, err
@@ -177,7 +179,7 @@ var RateLimitError error = fmt.Errorf("rate limit exceeded")
 var PauseSolcastError error = fmt.Errorf("pause solcast")
 var PauseSolcastUntil time.Time
 
-func getForecastDataFromAPI(propertyID, apiKey string) (*forecasts, error) {
+func getForecastDataFromAPI() (*forecasts, error) {
 
 	now := time.Now()
 	if PauseSolcastUntil.After(now) {
@@ -185,7 +187,7 @@ func getForecastDataFromAPI(propertyID, apiKey string) (*forecasts, error) {
 	}
 
 	url := fmt.Sprintf("https://api.solcast.com.au/rooftop_sites/%s/forecasts?format=json&api_key=%s",
-		propertyID, apiKey)
+		config.Config.SolcastPropertyID, config.Config.SolcastApiKey)
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -217,7 +219,7 @@ func getForecastDataFromAPI(propertyID, apiKey string) (*forecasts, error) {
 
 func getForecastDataFromFile() (*forecasts, error) {
 
-	b, err := os.ReadFile("today.json")
+	b, err := os.ReadFile("forecasts.json")
 	if err != nil {
 		return nil, err
 	}
