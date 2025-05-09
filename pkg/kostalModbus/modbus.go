@@ -116,7 +116,7 @@ func GetPower() map[string]PowerItem {
 	gridString := fmt.Sprintf("%1.1f", math.Abs(float64(grid)))
 
 	now := time.Now()
-	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
+	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, config.Config.Location)
 
 	forecast, err := solcast.GetForcast(today)
 	if err != nil {

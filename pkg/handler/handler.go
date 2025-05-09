@@ -37,7 +37,7 @@ func RenderForecast(w http.ResponseWriter, r *http.Request) {
 	}
 
 	now := time.Now()
-	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
+	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, config.Config.Location)
 	forecastToday, err := solcast.GetForcast(today)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -45,7 +45,7 @@ func RenderForecast(w http.ResponseWriter, r *http.Request) {
 	}
 
 	tomorrow := today.AddDate(0, 0, 1)
-	forecastTomorrow, err := solcast.GetForcast(tomorrow,)
+	forecastTomorrow, err := solcast.GetForcast(tomorrow)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

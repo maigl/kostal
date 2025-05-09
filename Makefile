@@ -1,5 +1,7 @@
 .PHONY: arm install all web
 
+IMAGE_TAG := $(shell git describe --tags --abbrev=0)
+
 build:
 	go build -o kostal ./cmd/frame
 
@@ -13,7 +15,7 @@ install: arm web
 	scp kostal_arm logpi:~/kostal/ && rm kostal_arm
 
 docker:
-	docker build -t ghcr.io/maigl/kostal:latest .
+	docker build -t ghcr.io/maigl/kostal:$(IMAGE_TAG) .
 
 docker-push:
-	docker push ghcr.io/maigl/kostal:latest
+	docker push ghcr.io/maigl/kostal:$(IMAGE_TAG)
