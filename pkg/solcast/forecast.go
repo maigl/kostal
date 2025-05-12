@@ -103,13 +103,15 @@ var forecastsCache map[time.Time]Forecast
 func ResetForecasts() {
 	fmt.Printf("resetting forecasts cache, we needed %d calls\n", apiCallCount)
 	forecastsCache = nil
+	// don't forget to reset the api call count
+	apiCallCount = 0
 }
 
-// for now we only get the forcast from today
+// for now we only get the forecast from today
 // let's read forecast.json in '.'
-// find all the forcasts for today
+// find all the forecasts for today
 // and aggregate
-func GetForcast(day time.Time) (Forecast, error) {
+func GetForecast(day time.Time) (Forecast, error) {
 
 	if f, ok := forecastsCache[day]; ok {
 		return f, nil

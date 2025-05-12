@@ -118,7 +118,7 @@ func GetPower() map[string]PowerItem {
 	now := time.Now()
 	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, config.Config.Location)
 
-	forecast, err := solcast.GetForcast(today)
+	forecast, err := solcast.GetForecast(today)
 	if err != nil {
 		log.Printf("error getting forecast: %v", err)
 	}
