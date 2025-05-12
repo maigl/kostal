@@ -17,5 +17,5 @@ install: arm web
 docker:
 	docker build -t ghcr.io/maigl/kostal:$(IMAGE_TAG) .
 
-docker-push:
+docker-push: docker
 	docker push ghcr.io/maigl/kostal:$(IMAGE_TAG)
