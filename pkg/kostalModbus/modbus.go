@@ -21,7 +21,7 @@ type PowerItem struct {
 	Forecast string
 }
 
-func getModbusHandler() *modbus.TCPClientHandler {
+func getModbusHandler() (*modbus.TCPClientHandler, error) {
 	// Modbus TCP
 	handler := modbus.NewTCPClientHandler(config.Config.ModbusAddr)
 	handler.Timeout = 10 * time.Second
@@ -30,15 +30,21 @@ func getModbusHandler() *modbus.TCPClientHandler {
 	// Connect manually so that multiple requests are handled in one connection session
 	err := handler.Connect()
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
-	return handler
+	return handler, nil
 }
 
-func GetPower() map[string]PowerItem {
+func GetPower() (map[string]PowerItem, error) {
+
+
+
 	if client == nil {
 		// TODO maybe cache power object and reduce number of modbus calls
-		modbusHandler := getModbusHandler()
+		modbusHandler, err := getModbusHandler()
+		if err != nil {
+			return nil, err
+		}
 		client = modbus.NewClient(modbusHandler)
 		// defer modbusHandler.Close()
 	}
@@ -46,7 +52,7 @@ func GetPower() map[string]PowerItem {
 	br := data.Registers["514"]
 	err := br.Read(client)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	battery := fmt.Sprintf("%d", br.Value)
@@ -54,14 +60,14 @@ func GetPower() map[string]PowerItem {
 	yr := data.Registers["260"]
 	err = yr.Read(client)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	yield := yr.Float32()
 	yr = data.Registers["270"]
 	err = yr.Read(client)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	yield += yr.Float32()
@@ -74,21 +80,21 @@ func GetPower() map[string]PowerItem {
 	cr := data.Registers["106"]
 	err = cr.Read(client)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	consumption := cr.Float32()
 	cr = data.Registers["108"]
 	err = cr.Read(client)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	consumption += cr.Float32()
 	cr = data.Registers["116"]
 	err = cr.Read(client)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	consumption += cr.Float32()
@@ -101,7 +107,7 @@ func GetPower() map[string]PowerItem {
 	ir := data.Registers["575"]
 	err = ir.Read(client)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 	gridRaw := float32(ir.Uint16()) / 1000.
 	// we seem to have an overflow here
@@ -128,7 +134,7 @@ func GetPower() map[string]PowerItem {
 		"consumption": {Label: "consumption", Unit: "kW", Value: consumptionString, Forecast: forecast.Noon.Icon()},
 		"grid":        {Label: gridLabel, Unit: "kW", Value: gridString, Forecast: forecast.Afternoon.Icon()},
 		"yield":       {Label: "yield", Unit: "kW", Value: yieldString, Forecast: forecast.Evening.Icon()},
-	}
+	}, nil
 }
 
 func PrintAllRegisters() { // nolint

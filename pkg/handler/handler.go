@@ -11,7 +11,18 @@ import (
 )
 
 func Web(w http.ResponseWriter, r *http.Request) {
-	power := kostalModbus.GetPower()
+
+	defaultPowerItem := map[string]kostalModbus.PowerItem{
+		"battery":     {Label: "battery", Unit: "%"},
+		"consumption": {Label: "consumption", Unit: "kW"},
+		"grid":        {Label: "to grid", Unit: "kW"},
+		"yield":       {Label: "yield", Unit: "kW"},
+	}
+
+	power, err := kostalModbus.GetPower()
+	if err != nil {
+		power = defaultPowerItem
+	}
 
 	tmpl, err := template.ParseFiles(config.Config.WebDirPath + "/frame.html")
 
