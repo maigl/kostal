@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"log"
 	"net/http"
 	"text/template"
 	"time"
@@ -21,6 +22,7 @@ func Web(w http.ResponseWriter, r *http.Request) {
 
 	power, err := kostalModbus.GetPower()
 	if err != nil {
+		log.Printf("error getting power data: %v", err)
 		power = defaultPowerItem
 	}
 

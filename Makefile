@@ -26,7 +26,8 @@ docker-push: docker
 # but we do this only if git is clean
 release:
 	@if [ -z "$(shell git status --porcelain)" ]; then \
-		NEW_VERSION=$$(echo $(IMAGE_TAG) | awk -F. '{print $$1+1}'); \
+		CURRENT=$$(echo $(IMAGE_TAG) | sed 's/v//'); \
+		NEW_VERSION=$$(($$CURRENT + 1)); \
 		git tag -a "v$$NEW_VERSION" -m "Release v$$NEW_VERSION"; \
 		git push origin "v$$NEW_VERSION"; \
 		echo "Released new version: v$$NEW_VERSION"; \

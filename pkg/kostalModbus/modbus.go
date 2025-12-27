@@ -37,8 +37,6 @@ func getModbusHandler() (*modbus.TCPClientHandler, error) {
 
 func GetPower() (map[string]PowerItem, error) {
 
-
-
 	if client == nil {
 		// TODO maybe cache power object and reduce number of modbus calls
 		modbusHandler, err := getModbusHandler()
@@ -52,6 +50,7 @@ func GetPower() (map[string]PowerItem, error) {
 	br := data.Registers["514"]
 	err := br.Read(client)
 	if err != nil {
+		client = nil
 		return nil, err
 	}
 
@@ -60,6 +59,7 @@ func GetPower() (map[string]PowerItem, error) {
 	yr := data.Registers["260"]
 	err = yr.Read(client)
 	if err != nil {
+		client = nil
 		return nil, err
 	}
 
@@ -67,6 +67,7 @@ func GetPower() (map[string]PowerItem, error) {
 	yr = data.Registers["270"]
 	err = yr.Read(client)
 	if err != nil {
+		client = nil
 		return nil, err
 	}
 
@@ -80,6 +81,7 @@ func GetPower() (map[string]PowerItem, error) {
 	cr := data.Registers["106"]
 	err = cr.Read(client)
 	if err != nil {
+		client = nil
 		return nil, err
 	}
 
@@ -87,6 +89,7 @@ func GetPower() (map[string]PowerItem, error) {
 	cr = data.Registers["108"]
 	err = cr.Read(client)
 	if err != nil {
+		client = nil
 		return nil, err
 	}
 
@@ -94,6 +97,7 @@ func GetPower() (map[string]PowerItem, error) {
 	cr = data.Registers["116"]
 	err = cr.Read(client)
 	if err != nil {
+		client = nil
 		return nil, err
 	}
 
@@ -107,6 +111,7 @@ func GetPower() (map[string]PowerItem, error) {
 	ir := data.Registers["575"]
 	err = ir.Read(client)
 	if err != nil {
+		client = nil
 		return nil, err
 	}
 	gridRaw := float32(ir.Uint16()) / 1000.
