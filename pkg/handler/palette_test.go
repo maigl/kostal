@@ -57,6 +57,16 @@ func TestParsePalette(t *testing.T) {
 	}
 }
 
+func TestFetchPalette(t *testing.T) {
+	palette, err := FetchPalette()
+	if err != nil {
+		t.Fatalf("FetchPalette failed: %v", err)
+	}
+	if len(palette) != 4 {
+		t.Errorf("expected 4 colors, got %d", len(palette))
+	}
+}
+
 func TestParseAutoColorDuration(t *testing.T) {
 	tests := []struct {
 		input    string
