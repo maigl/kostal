@@ -45,10 +45,7 @@ func Web(w http.ResponseWriter, r *http.Request) {
 		Palette:     GlobalPaletteManager.GetPalette(),
 	}
 
-	if err := tmpl.Execute(w, data); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	tmpl.Execute(w, data)
 }
 
 func RenderForecast(w http.ResponseWriter, r *http.Request) {
@@ -83,9 +80,7 @@ func RenderForecast(w http.ResponseWriter, r *http.Request) {
 		Tomorrow: forecastTomorrow,
 	}
 
-	if err := tmpl.Execute(w, data); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	tmpl.Execute(w, data)
 }
 
 func SetColors(w http.ResponseWriter, r *http.Request) {
