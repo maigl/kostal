@@ -34,7 +34,7 @@ func Init() {
 	pflag.String("solcast.property_id", "", "Solcast property ID")
 	pflag.String("palette", "", "Color palette (e.g. c41b5c-08415c-6b818c-f1bf98)")
 	pflag.String("auto-color", "", "Auto-fetch palette interval (e.g. 5m, 1h)")
-	pflag.String("auto-color-source", "colormind", "Auto-color source: colormind, local, or hybrid")
+	pflag.String("auto-color-source", "colormind", "Auto-color source: colormind, local, coolors, or hybrid")
 	pflag.String("config", "config.json", "Config file path")
 	pflag.Parse()
 

@@ -8,17 +8,19 @@ import (
 )
 
 type PaletteManager struct {
-	mu         sync.RWMutex
-	palette    [4]string
-	configFile string
+	mu           sync.RWMutex
+	palette      [4]string
+	configFile   string
+	coolorsIndex int
 }
 
 var GlobalPaletteManager *PaletteManager
 
 func InitPaletteManager(configFile string) {
 	GlobalPaletteManager = &PaletteManager{
-		configFile: configFile,
-		palette:    [4]string{"08415c", "6b818c", "f1bf98", "c41b5c"},
+		configFile:   configFile,
+		palette:      CoolorsPalettes[0].Colors,
+		coolorsIndex: 0,
 	}
 	GlobalPaletteManager.loadFromFile()
 }

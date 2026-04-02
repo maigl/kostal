@@ -17,6 +17,7 @@ const (
 	AutoColorSourceColormind = "colormind"
 	AutoColorSourceLocal     = "local"
 	AutoColorSourceHybrid    = "hybrid"
+	AutoColorSourceCoolors   = "coolors"
 )
 
 func ParsePalette(input string) ([4]string, error) {
@@ -92,6 +93,11 @@ func FetchPalette(source string) ([4]string, error) {
 	switch source {
 	case AutoColorSourceLocal:
 		return GenerateLocalPalette()
+	case AutoColorSourceCoolors:
+		if GlobalPaletteManager != nil {
+			return GlobalPaletteManager.NextCoolorsPalette(), nil
+		}
+		return CoolorsPalettes[0].Colors, nil
 	case AutoColorSourceHybrid:
 		colors, err := fetchColormindPalette()
 		if err == nil {
