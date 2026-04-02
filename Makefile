@@ -1,6 +1,6 @@
 .PHONY: arm install all web
 
-IMAGE_TAG := $(shell git describe --tags --abbrev=0)
+IMAGE_TAG := $(shell git tag | tail -n 1)
 
 build:
 	go build -o kostal ./cmd/frame
@@ -26,7 +26,7 @@ docker-push: docker
 # but we do this only if git is clean
 release:
 	@if [ -z "$(shell git status --porcelain)" ]; then \
-		NEW_VERSION=$$(echo $(IMAGE_TAG) | awk -F. '{print $$1+1}'); \
+		NEW_VERSION=$$(echo $(IMAGE_TAG) | sed 's/v//g' | awk '{print $$1+1}'); \
 		git tag -a "v$$NEW_VERSION" -m "Release v$$NEW_VERSION"; \
 		git push origin "v$$NEW_VERSION"; \
 		echo "Released new version: v$$NEW_VERSION"; \
