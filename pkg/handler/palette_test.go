@@ -10,6 +10,7 @@ func TestParsePalette(t *testing.T) {
 		name     string
 		input    string
 		expected [4]string
+		hasError bool
 	}{
 		{
 			name:     "dash-separated with hash",
@@ -25,12 +26,25 @@ func TestParsePalette(t *testing.T) {
 			name:     "five colors ignores fifth",
 			input:    "c41b5c-08415c-6b818c-f1bf98-eee5e9",
 			expected: [4]string{"c41b5c", "08415c", "6b818c", "f1bf98"},
+			hasError: false,
+		},
+		{
+			name:     "only three colors returns error",
+			input:    "c41b5c-08415c-6b818c",
+			expected: [4]string{},
+			hasError: true,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			result, err := ParsePalette(tt.input)
+			if tt.hasError {
+				if err == nil {
+					t.Error("expected error, got nil")
+				}
+				return
+			}
 			if err != nil {
 				t.Fatalf("unexpected error: %v", err)
 			}
