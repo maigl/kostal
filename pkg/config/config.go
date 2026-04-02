@@ -12,7 +12,14 @@ type Params struct {
 	WebDirPath        string
 	SolcastApiKey     string
 	SolcastPropertyID string
-	Location *time.Location
+	Location          *time.Location
+	Palette           *PaletteParams
+}
+
+type PaletteParams struct {
+	Palette    string
+	AutoColor  string
+	ConfigFile string
 }
 
 var Config *Params
@@ -24,6 +31,9 @@ func Init() {
 	pflag.String("web.dir", "./web", "Web directory path")
 	pflag.String("solcast.api_key", "", "Solcast API key")
 	pflag.String("solcast.property_id", "", "Solcast property ID")
+	pflag.String("palette", "", "Color palette (e.g. c41b5c-08415c-6b818c-f1bf98)")
+	pflag.String("auto-color", "", "Auto-fetch palette interval (e.g. 5m, 1h)")
+	pflag.String("config", "config.json", "Config file path")
 	pflag.Parse()
 
 	viper.BindPFlags(pflag.CommandLine)
@@ -40,5 +50,10 @@ func Init() {
 		SolcastApiKey:     viper.GetString("solcast.api_key"),
 		SolcastPropertyID: viper.GetString("solcast.property_id"),
 		Location:          berlin,
+		Palette: &PaletteParams{
+			Palette:    viper.GetString("palette"),
+			AutoColor:  viper.GetString("auto-color"),
+			ConfigFile: viper.GetString("config"),
+		},
 	}
 }
