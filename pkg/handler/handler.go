@@ -3,6 +3,7 @@ package handler
 import (
 	"io"
 	"net/http"
+	"path/filepath"
 	"text/template"
 	"time"
 
@@ -30,7 +31,7 @@ func Web(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	tmpl, err := template.ParseFiles(config.Config.WebDirPath + "/frame.html")
+	tmpl, err := template.ParseFiles(filepath.Join(config.Config.WebDirPath, "frame.html"))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -46,12 +47,12 @@ func Web(w http.ResponseWriter, r *http.Request) {
 
 	if err := tmpl.Execute(w, data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 }
 
 func RenderForecast(w http.ResponseWriter, r *http.Request) {
-
-	tmpl, err := template.ParseFiles(config.Config.WebDirPath + "/forecast.html")
+	tmpl, err := template.ParseFiles(filepath.Join(config.Config.WebDirPath, "forecast.html"))
 
 	// tmpl, err := template.New("web").Parse(html)
 	if err != nil {
