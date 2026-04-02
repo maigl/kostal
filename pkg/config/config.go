@@ -17,9 +17,10 @@ type Params struct {
 }
 
 type PaletteParams struct {
-	Palette    string
-	AutoColor  string
-	ConfigFile string
+	Palette      string
+	AutoColor    string
+	AutoColorSrc string
+	ConfigFile   string
 }
 
 var Config *Params
@@ -33,6 +34,7 @@ func Init() {
 	pflag.String("solcast.property_id", "", "Solcast property ID")
 	pflag.String("palette", "", "Color palette (e.g. c41b5c-08415c-6b818c-f1bf98)")
 	pflag.String("auto-color", "", "Auto-fetch palette interval (e.g. 5m, 1h)")
+	pflag.String("auto-color-source", "colormind", "Auto-color source: colormind, local, or hybrid")
 	pflag.String("config", "config.json", "Config file path")
 	pflag.Parse()
 
@@ -51,9 +53,10 @@ func Init() {
 		SolcastPropertyID: viper.GetString("solcast.property_id"),
 		Location:          berlin,
 		Palette: &PaletteParams{
-			Palette:    viper.GetString("palette"),
-			AutoColor:  viper.GetString("auto-color"),
-			ConfigFile: viper.GetString("config"),
+			Palette:      viper.GetString("palette"),
+			AutoColor:    viper.GetString("auto-color"),
+			AutoColorSrc: viper.GetString("auto-color-source"),
+			ConfigFile:   viper.GetString("config"),
 		},
 	}
 }

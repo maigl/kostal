@@ -28,16 +28,20 @@ func main() {
 	if config.Config.Palette.AutoColor != "" {
 		duration, err := handler.ParseAutoColorDuration(config.Config.Palette.AutoColor)
 		if err == nil && duration > 0 {
+			source := config.Config.Palette.AutoColorSrc
+			if source == "" {
+				source = "colormind"
+			}
 			go func() {
 				ticker := time.NewTicker(duration)
 				for range ticker.C {
-					colors, err := handler.FetchPalette()
+					colors, err := handler.FetchPalette(source)
 					if err != nil {
 						log.Printf("auto-color fetch failed: %v", err)
 						continue
 					}
 					handler.GlobalPaletteManager.SetPalette(colors)
-					log.Println("auto-color: fetched new palette")
+					log.Printf("auto-color: fetched new palette from %s", source)
 				}
 			}()
 		}

@@ -58,7 +58,7 @@ func TestParsePalette(t *testing.T) {
 }
 
 func TestFetchPalette(t *testing.T) {
-	palette, err := FetchPalette()
+	palette, err := FetchPalette(AutoColorSourceLocal)
 	if err != nil {
 		t.Fatalf("FetchPalette failed: %v", err)
 	}
@@ -69,6 +69,16 @@ func TestFetchPalette(t *testing.T) {
 		if len(color) != 6 {
 			t.Errorf("color[%d] %q is not valid hex", i, color)
 		}
+	}
+}
+
+func TestGenerateLocalPalette(t *testing.T) {
+	palette, err := GenerateLocalPalette()
+	if err != nil {
+		t.Fatalf("GenerateLocalPalette failed: %v", err)
+	}
+	if len(palette) != 4 {
+		t.Errorf("expected 4 colors, got %d", len(palette))
 	}
 }
 
