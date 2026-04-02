@@ -11,29 +11,40 @@ import (
 	"github.com/maigl/kostal/pkg/solcast"
 )
 
+type PageData struct {
+	Battery     kostalModbus.PowerItem
+	Consumption kostalModbus.PowerItem
+	Grid        kostalModbus.PowerItem
+	Yield       kostalModbus.PowerItem
+	Palette     [4]string
+}
+
 func Web(w http.ResponseWriter, r *http.Request) {
-
-	defaultPowerItem := map[string]kostalModbus.PowerItem{
-		"battery":     {Label: "battery", Unit: "%"},
-		"consumption": {Label: "consumption", Unit: "kW"},
-		"grid":        {Label: "to grid", Unit: "kW"},
-		"yield":       {Label: "yield", Unit: "kW"},
-	}
-
 	power, err := kostalModbus.GetPower()
 	if err != nil {
-		power = defaultPowerItem
+		power = map[string]kostalModbus.PowerItem{
+			"battery":     {Label: "battery", Unit: "%"},
+			"consumption": {Label: "consumption", Unit: "kW"},
+			"grid":        {Label: "to grid", Unit: "kW"},
+			"yield":       {Label: "yield", Unit: "kW"},
+		}
 	}
 
 	tmpl, err := template.ParseFiles(config.Config.WebDirPath + "/frame.html")
-
-	// tmpl, err := template.New("web").Parse(html)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	if err := tmpl.Execute(w, power); err != nil {
+	data := PageData{
+		Battery:     power["battery"],
+		Consumption: power["consumption"],
+		Grid:        power["grid"],
+		Yield:       power["yield"],
+		Palette:     GlobalPaletteManager.GetPalette(),
+	}
+
+	if err := tmpl.Execute(w, data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
