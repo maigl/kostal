@@ -40,6 +40,10 @@ func FetchPalette() ([4]string, error) {
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode != http.StatusOK {
+		return generateRandomPalette()
+	}
+
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return generateRandomPalette()
