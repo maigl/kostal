@@ -1,9 +1,10 @@
 package handler
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
-	"math/rand"
 	"net/http"
 	"regexp"
 	"strings"
@@ -11,8 +12,6 @@ import (
 )
 
 var hexRegex = regexp.MustCompile(`#?([0-9a-fA-F]{6})`)
-
-var coolorsPaletteRegex = regexp.MustCompile(`"colors":\["(#[0-9a-fA-F]{6})`)
 
 func ParsePalette(input string) ([4]string, error) {
 	matches := hexRegex.FindAllStringSubmatch(input, -1)
@@ -34,36 +33,32 @@ func ParseAutoColorDuration(input string) (time.Duration, error) {
 }
 
 func FetchPalette() ([4]string, error) {
-	resp, err := http.Get("https://coolors.co/generate")
+	body := bytes.NewBufferString(`{"model":"default"}`)
+	resp, err := http.Post("http://colormind.io/api/", "application/json", body)
 	if err != nil {
-		return generateRandomPalette()
+		return [4]string{}, fmt.Errorf("colormind request failed: %w", err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return generateRandomPalette()
+		return [4]string{}, fmt.Errorf("colormind returned status %d", resp.StatusCode)
 	}
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return generateRandomPalette()
+	var result struct {
+		Result [][]int `json:"result"`
+	}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return [4]string{}, fmt.Errorf("failed to parse colormind response: %w", err)
 	}
 
-	matches := coolorsPaletteRegex.FindSubmatch(body)
-	if len(matches) < 2 {
-		return generateRandomPalette()
+	if len(result.Result) < 4 {
+		return [4]string{}, fmt.Errorf("colormind returned fewer than 4 colors")
 	}
 
-	return ParsePalette(string(matches[1]))
-}
-
-func generateRandomPalette() ([4]string, error) {
 	colors := [4]string{}
-	for i := range colors {
-		r := rand.Intn(256)
-		g := rand.Intn(256)
-		b := rand.Intn(256)
-		colors[i] = fmt.Sprintf("%02x%02x%02x", r, g, b)
+	for i := 0; i < 4; i++ {
+		rgb := result.Result[i]
+		colors[i] = fmt.Sprintf("%02x%02x%02x", rgb[0], rgb[1], rgb[2])
 	}
 	return colors, nil
 }

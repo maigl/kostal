@@ -65,6 +65,11 @@ func TestFetchPalette(t *testing.T) {
 	if len(palette) != 4 {
 		t.Errorf("expected 4 colors, got %d", len(palette))
 	}
+	for i, color := range palette {
+		if len(color) != 6 {
+			t.Errorf("color[%d] %q is not valid hex", i, color)
+		}
+	}
 }
 
 func TestParseAutoColorDuration(t *testing.T) {
