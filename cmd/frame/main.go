@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/maigl/kostal/pkg/config"
 	"github.com/maigl/kostal/pkg/handler"
@@ -12,10 +13,35 @@ import (
 	cron "github.com/robfig/cron/v3"
 )
 
-
 func main() {
-
 	config.Init()
+
+	handler.InitPaletteManager(config.Config.Palette.ConfigFile)
+
+	if config.Config.Palette.Palette != "" {
+		colors, err := handler.ParsePalette(config.Config.Palette.Palette)
+		if err == nil {
+			handler.GlobalPaletteManager.SetPalette(colors)
+		}
+	}
+
+	if config.Config.Palette.AutoColor != "" {
+		duration, err := handler.ParseAutoColorDuration(config.Config.Palette.AutoColor)
+		if err == nil && duration > 0 {
+			go func() {
+				ticker := time.NewTicker(duration)
+				for range ticker.C {
+					colors, err := handler.FetchPalette()
+					if err != nil {
+						log.Printf("auto-color fetch failed: %v", err)
+						continue
+					}
+					handler.GlobalPaletteManager.SetPalette(colors)
+					log.Println("auto-color: fetched new palette")
+				}
+			}()
+		}
+	}
 
 	c := cron.New()
 	c.AddFunc("0 6 * * *", func() {
@@ -30,6 +56,7 @@ func main() {
 
 	http.HandleFunc("/", handler.Web)
 	http.HandleFunc("/forecast", handler.RenderForecast)
+	http.HandleFunc("/colors", handler.SetColors)
 	if err := http.ListenAndServe(":8081", nil); err != nil {
 		panic(err)
 	}
