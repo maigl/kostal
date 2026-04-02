@@ -34,6 +34,29 @@ environment:
   - KOSTAL_PALETTE=c41b5c-08415c-6b818c-f1bf98
 ```
 
+## Auto-Color Feature
+
+Fetch fresh palettes automatically from coolors.co/generate.
+
+### Startup Options
+
+1. **Flag:** `--auto-color 5m` (or `1h`, `30s`, etc.)
+2. **Env var:** `KOSTAL_AUTO_COLOR=5m`
+
+### Behavior
+
+- On each tick, fetch `https://coolors.co/generate` 
+- Parse response to extract hex codes
+- Update in-memory palette
+- Write to config file
+- If API fails, log error and retry on next tick
+
+### Supported Duration Formats
+
+- `5m` = 5 minutes
+- `1h` = 1 hour  
+- `30s` = 30 seconds
+
 ## API
 
 ### POST /colors
