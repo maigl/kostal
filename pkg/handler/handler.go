@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"io"
 	"net/http"
 	"text/template"
 	"time"
@@ -73,4 +74,23 @@ func RenderForecast(w http.ResponseWriter, r *http.Request) {
 	if err := tmpl.Execute(w, data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func SetColors(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	colors, err := ParsePalette(string(body))
+	if err != nil {
+		http.Error(w, "Invalid palette format", http.StatusBadRequest)
+		return
+	}
+	GlobalPaletteManager.SetPalette(colors)
+	w.WriteHeader(http.StatusOK)
 }
