@@ -36,7 +36,7 @@ environment:
 
 ## Auto-Color Feature
 
-Fetch fresh palettes automatically from coolors.co/generate.
+Fetch fresh palettes automatically from colormind.io API.
 
 ### Startup Options
 
@@ -45,8 +45,8 @@ Fetch fresh palettes automatically from coolors.co/generate.
 
 ### Behavior
 
-- On each tick, fetch `https://coolors.co/generate` 
-- Parse response to extract hex codes
+- On each tick, POST `{"model":"default"}` to `http://colormind.io/api/`
+- Parse response to extract 4 RGB color values, convert to hex
 - Update in-memory palette
 - Write to config file
 - If API fails, log error and retry on next tick
