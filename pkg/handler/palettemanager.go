@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"log"
 	"os"
 	"sync"
 )
@@ -38,16 +39,19 @@ func (pm *PaletteManager) SetPalette(colors [4]string) {
 func (pm *PaletteManager) loadFromFile() {
 	data, err := os.ReadFile(pm.configFile)
 	if err != nil {
+		log.Printf("loadFromFile: %v", err)
 		return
 	}
 	var cfg struct {
 		Palette string `json:"palette"`
 	}
 	if err := json.Unmarshal(data, &cfg); err != nil {
+		log.Printf("loadFromFile: unmarshal error: %v", err)
 		return
 	}
 	colors, err := ParsePalette(cfg.Palette)
 	if err != nil {
+		log.Printf("loadFromFile: parse error: %v", err)
 		return
 	}
 	pm.palette = colors
@@ -64,6 +68,12 @@ func (pm *PaletteManager) saveToFile() {
 	}
 	cfg["palette"] = pm.palette[0] + "-" + pm.palette[1] + "-" + pm.palette[2] + "-" + pm.palette[3]
 
-	out, _ := json.MarshalIndent(cfg, "", "  ")
-	os.WriteFile(pm.configFile, out, 0644)
+	out, err := json.MarshalIndent(cfg, "", "  ")
+	if err != nil {
+		log.Printf("saveToFile: marshal error: %v", err)
+		return
+	}
+	if err := os.WriteFile(pm.configFile, out, 0644); err != nil {
+		log.Printf("saveToFile: write error: %v", err)
+	}
 }
